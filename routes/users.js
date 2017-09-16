@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/login', function(req, res, next) {
     res.render('signin');
 });
 
-router.post('/signin', function(req, res, next) {
+router.post('/login', function(req, res, next) {
     username = req.body.username;
     password = req.body.password;
 
@@ -20,18 +20,25 @@ router.post('/signin', function(req, res, next) {
                 } else {
                 	if(result.length) {
                 		if (password===result[0].password){
-                			console.log("success");
+                			req.session.token = "222";
                 			res.redirect('/');
                 		} else {
-                			res.redirect('/users');
+                			res.redirect('/users/login');
                 		}
                 	} else {
-                		res.redirect('/users');
+                		res.redirect('/users/login');
                 	}
                 }
             });
         }
     });
+});
+
+router.get('/logout', function(req, res, next){
+    if(req.session.token) {
+        req.session.token = '';
+    }
+    res.redirect('/users/login');
 });
 
 module.exports = router;

@@ -2,7 +2,8 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
+var session = require('express-session');
+//var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 
@@ -26,14 +27,30 @@ app.engine('html', ejs.__express);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'html');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(myConnection(mysql, dbOptions, 'single'));
+
+//app.use(cookieParser());
+app.use(session({
+	secret: '12345',
+	path: '/',
+	cookie: {maxAge: 1000 * 60 * 10},
+	resave: false,
+	saveUninitialized: true,
+}));
+
+app.use(function(req, res, next){
+	var url = req.originalUrl;
+	console.log(url);
+	if(url!='/users/login' && !req.session.token) {
+		return res.redirect("/users/login");
+	}
+	next();
+});
+
 app.use('/', index);
 app.use('/users', users);
 
