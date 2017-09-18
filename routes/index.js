@@ -6,7 +6,11 @@ router.get('/', function(req, res, next) {
 	res.render('index');
 });
 
-router.get('/physical', function(req, res, next) {
+router.get('/ivy', function(req, res, next) {
+    res.render('index');
+});
+
+router.get('/oswald', function(req, res, next) {
 	var uid = req.session.uid;
 	var type = 'physical';
 
@@ -18,7 +22,7 @@ router.get('/physical', function(req, res, next) {
                 if (err) {
                     return next(err);
                 } else {
-					res.render('index_physical',{
+					res.render('index_oswald',{
 							tasks: result
 						});
                 }

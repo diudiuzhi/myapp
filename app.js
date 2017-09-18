@@ -43,14 +43,14 @@ app.use(session({
 	saveUninitialized: true,
 }));
 
-// app.use(function(req, res, next){
-// 	var url = req.originalUrl;
-// 	console.log(url);
-// 	if(url!='/users/login' && !req.session.uid) {
-// 		return res.redirect("/users/login");
-// 	}
-// 	next();
-// });
+app.use(function(req, res, next){
+	var url = req.originalUrl;
+	console.log(url);
+	if(url!='/users/login' && !req.session.uid) {
+		return res.redirect("/users/login");
+	}
+	next();
+});
 
 app.use('/', index);
 app.use('/users', users);
