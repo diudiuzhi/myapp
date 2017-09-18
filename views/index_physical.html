@@ -36,12 +36,12 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li class="active"><a href="/">Overview<span class="sr-only">(current)</span></a></li>
+            <li><a href="/">Overview<span class="sr-only">(current)</span></a></li>
             <li><a href="#">英语</a></li>
             <li><a href="#">政治</a></li>
             <li><a href="#">专业课一</a></li>
             <li><a href="#">专业课二</a></li>
-            <li><a href="/physical">健身</a></li>
+            <li class="active"><a href="/physical">健身</a></li>
           </ul>
         </div>
           <h2 class="sub-header">To do list</h2>
@@ -53,17 +53,21 @@
                   <th>任务</th>
                   <th>开始时间</th>
                   <th>完成时间</th>
-                  <th>学科</th>
+                  <th>类别</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1001</td>
-                  <td>背单词</td>
-                  <td>21:00</td>
-                  <td>21:30</td>
-                  <td>英语</td>
-                </tr>
+                <% if(tasks.length) {%>
+                  <% for(var i=0; i<tasks.length; i++) {%>
+                  <tr>
+                    <td><%=tasks[0].task_id%></td>
+                    <td><%=tasks[0].task_content%></td>
+                    <td><%=tasks[0].start_timestamp%></td>
+                    <td><%=tasks[0].end_timestamp%></td>
+                    <td><%=tasks[0].task_title%></td>
+                  </tr>
+                  <% }%>
+                <%}%>
               </tbody>
             </table>
           </div>
