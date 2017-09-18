@@ -42,6 +42,37 @@
         </div>
           <h2 class="sub-header">To do list</h2>
           <div class="table-responsive">
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">New Task</button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+               <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">New Task</h4>
+                  </div>
+                  <div class="modal-body">
+                    <form id="add_form" action="/tasks/add" method="post">
+                      <div class="form-group">
+                        <label for="recipient-name" class="control-label">任务:</label>
+                        <input type="text" class="form-control" name="task_content">
+                        <label for="recipient-name" class="control-label">开始时间:</label>
+                        <input type="text" class="form-control" name="start_timestamp">
+                        <label for="recipient-name" class="control-label">结束时间:</label>
+                        <input type="text" class="form-control" name="end_timestamp">
+                        <label class="control-label">类别:</label>
+                        <input type="text" class="form-control" name="task_type">
+                      </div>                                         
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="$('#add_form').submit();">Confirm</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -49,21 +80,27 @@
                   <th>任务</th>
                   <th>开始时间</th>
                   <th>完成时间</th>
-                  <th>学科</th>
+                  <th>类别</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1001</td>
-                  <td>背单词</td>
-                  <td>21:00</td>
-                  <td>21:30</td>
-                  <td>英语</td>
-                </tr>
+                <% if(tasks.length) {%>
+                  <% for(var i=0; i<tasks.length; i++) {%>
+                  <tr>
+                    <td><%=tasks[0].task_id%></td>
+                    <td><%=tasks[0].task_content%></td>
+                    <td><%=tasks[0].start_timestamp%></td>
+                    <td><%=tasks[0].end_timestamp%></td>
+                    <td><%=tasks[0].task_type%></td>
+                  </tr>
+                  <% }%>
+                <%}%>
               </tbody>
             </table>
           </div>
       </div>
     </div>
+    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

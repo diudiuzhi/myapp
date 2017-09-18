@@ -3,7 +3,6 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var session = require('express-session');
-//var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
 
@@ -19,7 +18,7 @@ var mysql = require('mysql'),
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var tasks = require('./routes/task');
+var tasks = require('./routes/tasks');
 
 var app = express();
 

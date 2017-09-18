@@ -3,11 +3,26 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-	res.render('index');
+	res.redirect('/ivy');
 });
 
 router.get('/ivy', function(req, res, next) {
-    res.render('index');
+    var uid = 'f4cb0ff0-9c1e-11e7-a4ab-1da4a02e1946';
+    req.getConnection(function(err, conn) {
+        if (err) {
+            return next(err);
+        } else {
+            conn.query('select * from task where user_id=?', [uid], function(err,result) {
+                if (err) {
+                    return next(err);
+                } else {
+                    res.render('index',{
+                            tasks: result
+                        });
+                }
+            });
+        }
+    });
 });
 
 router.get('/oswald', function(req, res, next) {
@@ -29,8 +44,6 @@ router.get('/oswald', function(req, res, next) {
             });
         }
     });
-
-	// res.render('index_physical');
 });
 
 module.exports = router;
