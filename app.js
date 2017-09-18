@@ -19,6 +19,7 @@ var mysql = require('mysql'),
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var tasks = require('./routes/task');
 
 var app = express();
 
@@ -45,7 +46,7 @@ app.use(session({
 app.use(function(req, res, next){
 	var url = req.originalUrl;
 	console.log(url);
-	if(url!='/users/login' && !req.session.token) {
+	if(url!='/users/login' && !req.session.uid) {
 		return res.redirect("/users/login");
 	}
 	next();
@@ -53,6 +54,7 @@ app.use(function(req, res, next){
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/tasks', tasks);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

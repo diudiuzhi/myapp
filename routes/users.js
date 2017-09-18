@@ -20,7 +20,7 @@ router.post('/login', function(req, res, next) {
                 } else {
                 	if(result.length) {
                 		if (password===result[0].password){
-                			req.session.token = "222";
+                			req.session.uid = result[0].user_id;
                 			res.redirect('/');
                 		} else {
                 			res.redirect('/users/login');
